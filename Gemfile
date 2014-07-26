@@ -22,10 +22,10 @@ gem 'jbuilder'
 group :production do
   # Use unicorn as the app server
   gem 'unicorn'
-
-  # Code Coverage
-  gem 'coveralls', require: false
 end
+
+# Code Coverage
+gem 'coveralls', require: false
 # Deploy with Capistrano
 # gem 'capistrano', :group => :development
 
