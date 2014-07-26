@@ -19,12 +19,13 @@ gem 'resque-scheduler'
 # To use Jbuilder templates for JSON
 gem 'jbuilder'
 
-# Use unicorn as the app server
-gem 'unicorn'
+group :production do
+  # Use unicorn as the app server
+  gem 'unicorn'
 
-# Code Coverage
-gem 'coveralls', require: false
-
+  # Code Coverage
+  gem 'coveralls', require: false
+end
 # Deploy with Capistrano
 # gem 'capistrano', :group => :development
 
