@@ -2,5 +2,6 @@
 
 {<img src="https://travis-ci.org/dwdsolutions/argo.svg" alt="Build Status" />}[https://travis-ci.org/dwdsolutions/argo]
 {<img src="https://coveralls.io/repos/dwdsolutions/argo/badge.png" alt="Coverage Status" />}[https://coveralls.io/r/dwdsolutions/argo]
+{<img src="https://codeclimate.com/github/dwdsolutions/argo.png" />}[https://codeclimate.com/github/dwdsolutions/argo]
 
 This implements an API to provide normalized information taken from http://api.gobiernoabierto.gob.sv
