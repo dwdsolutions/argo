@@ -1,5 +1,5 @@
 = Argo API
 
-
+{<img src="https://travis-ci.org/dwdsolutions/argo.svg" alt="Build Status" />}[https://travis-ci.org/dwdsolutions/argo]
 
 This implements an API to provide normalized information taken from http://api.gobiernoabierto.gob.sv
