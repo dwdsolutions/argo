@@ -22,6 +22,9 @@ gem 'jbuilder'
 # Use unicorn as the app server
 gem 'unicorn'
 
+# Code Coverage
+gem 'coveralls', require: false
+
 # Deploy with Capistrano
 # gem 'capistrano', :group => :development
 
