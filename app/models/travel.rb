@@ -1,4 +1,6 @@
 class Travel < ActiveRecord::Base
+  has_many :travelers
+
   def self.sync_with_api(opts={})
     url = 'http://api.gobiernoabierto.gob.sv/'
     endpoint = 'institution_travels'
@@ -35,19 +37,28 @@ class Travel < ActiveRecord::Base
 
       request.run
 
-      total_cost = item.fetch('travel_cost', 0) + item.fetch('viatical_cost', 0)
-      {
+      other_costs = 0
+      item['others_cost'].gsub(/\S(?<other>\d+\.\d+)/).each { |m| other_costs += $~.captures.first.to_f }
+      total_cost = item.fetch('travel_cost', 0) + item.fetch('viatical_cost', 0) + other_costs
+      traveler = {
+          name: item['institution_official_name'],
+          position: item['institution_official_job'],
+          institution: @institutions.first['name'],
+          cost_by_person: total_cost
+      }
+
+      travel = {
         name: item['name'],
         destination: item['destination'],
         start_date: item['start_date'],
         end_date: item['end_date'],
         sponsor_contribution: item['sponsor_contribution'],
-        total_cost: total_cost,
         institution_name: @institutions.first['name'],
         institution_acronym: @institutions.first['acronym']
       }
+
+      @travel = self.create travel
+      @travel.travelers.create(traveler)
     end
-    puts "response: #{@response.first}"
-    #self.create results
   end
 end
