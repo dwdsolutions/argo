@@ -60,7 +60,5 @@ class Travel < ActiveRecord::Base
       @travel = self.create travel
       @travel.travelers.create(traveler)
     end
-    puts "result: #{results.first}"
-    #self.create results
   end
 end
