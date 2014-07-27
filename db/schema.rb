@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140727150943) do
+ActiveRecord::Schema.define(version: 20140727152648) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,12 +31,16 @@ ActiveRecord::Schema.define(version: 20140727150943) do
     t.string   "destination"
     t.integer  "passengers_number"
     t.string   "description"
-    t.decimal  "cost_by_person",    precision: 10, scale: 2
     t.decimal  "total_cost",        precision: 10, scale: 2
     t.datetime "start_date"
     t.datetime "end_date"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "country"
+    t.string   "city"
+    t.string   "airport_code"
   end
+
+  add_index "travels", ["country"], name: "index_travels_on_country", using: :btree
 
 end
