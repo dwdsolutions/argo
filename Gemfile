@@ -11,6 +11,8 @@ gem 'pg'
 gem 'resque'
 gem 'resque-scheduler'
 
+gem 'mechanize'
+gem 'nokogiri'
 
 
 # To use ActiveModel has_secure_password
