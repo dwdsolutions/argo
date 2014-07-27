@@ -23,12 +23,12 @@ test:
   <<: *default
   database: argo_test
   host: localhost
-  username: darkness51
+  username: postgres
   password:
 
 production:
   <<: *default
   database: argo
   host: localhost
-  username: darkness51
+  username: postgres
   password:
