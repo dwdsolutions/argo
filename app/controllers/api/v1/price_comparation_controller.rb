@@ -4,6 +4,7 @@ module Api
 	
 	  def compare
                 @travel = Travel.where(:id => params[:travel_id]).first
+		@trave = Travel.find(62)
 		travel_cost = @travel.total_cost
 		json = Jbuilder.encode do |json|
 		  json.comparations PriceComparation.comparations() do |c|
