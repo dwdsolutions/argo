@@ -3,8 +3,8 @@ module Api
 	class PriceComparationController < ApplicationController
 	
 	  def compare
-                #@travel = Travel.find(params[:travel_id])
-		travel_cost = 2500
+                @travel = Travel.where(:id => params[:travel_id]).first
+		travel_cost = @travel.total_cost
 		json = Jbuilder.encode do |json|
 		  json.comparations PriceComparation.comparations() do |c|
   		   json.id c.id

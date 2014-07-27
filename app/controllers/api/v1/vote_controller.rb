@@ -2,15 +2,15 @@ module Api
     module V1
 	class VoteController < ApplicationController
 		def vote_up
-			#@travel = Travel.where(:id => params[:travel_id]).first
-			travel_id = 1
+			@travel = Travel.where(:id => params[:travel_id]).first
+			travel_id = @travel.id
 			vote(travel_id,true)
 			render json: get_votes_json(travel_id)
 		end
 		
 		def vote_down
-			#@travel = Travel.where(:id => params[:travel_id]).first
-			travel_id = 1
+			@travel = Travel.where(:id => params[:travel_id]).first
+			travel_id = @travel.id
 			vote(travel_id,false)
 			render json: get_votes_json(travel_id)
 		end
