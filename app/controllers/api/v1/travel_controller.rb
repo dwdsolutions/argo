@@ -23,6 +23,10 @@ module Api
 		def travelers_for_institucion
 			render json: Traveler.group(:institution_acronym).count
 		end
+
+		def travels_recents
+			render json: Travel.order('start_date DESC').limit(10)
+		end
 	end
    end
 end
