@@ -9,4 +9,4 @@ after_success:
 addons:
   postgresql: "9.3"
 before_script:
-  - psql -c 'create database argos_test;' -U postgres
+  - psql -c 'create database argo_test;' -U postgres
