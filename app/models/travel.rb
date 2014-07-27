@@ -57,7 +57,11 @@ class Travel < ActiveRecord::Base
         institution_acronym: @institutions.first['acronym']
       }
 
-      @travel = self.create travel
+      @travel = self.find_by_name travel[:name]
+      if @travel.nil?
+        @travel = self.create travel
+      end
+
       @travel.travelers.create(traveler)
     end
   end
