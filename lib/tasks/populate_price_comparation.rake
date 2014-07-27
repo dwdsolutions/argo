@@ -10,7 +10,7 @@ agent.request_headers = HEADERS
 namespace :argo do
 
    desc "Populate PriceComparation"
-   task :populate_price_comparation => [:bonanza, :pizza, :cerveza, :becas, :combustible]
+   task :populate_price_comparation => [:bonanza, :pizza, :cerveza, :becas, :combustible, :policia]
 
    desc "Populate PriceComparation table with Pollo Bonanza price"
    task :bonanza => :environment do
@@ -20,6 +20,74 @@ namespace :argo do
 	price_comparation.source_information = "Restaurante Pollo Bonanza"
 	price_comparation.unit_cost = 2.75
 	price_comparation.description = "Un cuarto de Pollo Bonanza"
+	price_comparation.name = price_comparation.description
+	price_comparation.save
+   end
+
+   desc "Populate PriceComparation table with police salario"
+   task :policia => :environment do
+	puts "Guardando precio policia"
+ 	price_comparation = PriceComparation.new
+	price_comparation.category = "Salario"
+	price_comparation.source_information = "Policia Nacional Civil"
+	price_comparation.unit_cost = 424.77
+	price_comparation.description = "Salario mensual de Agente de la PNC"
+	price_comparation.name = price_comparation.description
+	price_comparation.save
+
+	price_comparation = PriceComparation.new
+	price_comparation.category = "Salario"
+	price_comparation.source_information = "Policia Nacional Civil"
+	price_comparation.unit_cost = 487.87
+	price_comparation.description = "Salario mensual de Cabo de la PNC"
+	price_comparation.name = price_comparation.description
+	price_comparation.save
+
+	price_comparation = PriceComparation.new
+	price_comparation.category = "Salario"
+	price_comparation.source_information = "Policia Nacional Civil"
+	price_comparation.unit_cost = 532.60
+	price_comparation.description = "Salario mensual de Sargento de la PNC"
+	price_comparation.name = price_comparation.description
+	price_comparation.save
+
+	price_comparation = PriceComparation.new
+	price_comparation.category = "Salario"
+	price_comparation.source_information = "Policia Nacional Civil"
+	price_comparation.unit_cost = 973.39
+	price_comparation.description = "Salario mensual de Subinspector de la PNC"
+	price_comparation.name = price_comparation.description
+	price_comparation.save
+
+	price_comparation = PriceComparation.new
+	price_comparation.category = "Salario"
+	price_comparation.source_information = "Policia Nacional Civil"
+	price_comparation.unit_cost = 1050.01
+	price_comparation.description = "Salario mensual de Inspector de la PNC"
+	price_comparation.name = price_comparation.description
+	price_comparation.save
+
+	price_comparation = PriceComparation.new
+	price_comparation.category = "Salario"
+	price_comparation.source_information = "Policia Nacional Civil"
+	price_comparation.unit_cost = 1208.70
+	price_comparation.description = "Salario mensual de Inspector Jefe de la PNC"
+	price_comparation.name = price_comparation.description
+	price_comparation.save
+
+	price_comparation = PriceComparation.new
+	price_comparation.category = "Salario"
+	price_comparation.source_information = "Policia Nacional Civil"
+	price_comparation.unit_cost = 1257.20
+	price_comparation.description = "Salario mensual de Subcomisionado de la PNC"
+	price_comparation.name = price_comparation.description
+	price_comparation.save
+
+	price_comparation = PriceComparation.new
+	price_comparation.category = "Salario"
+	price_comparation.source_information = "Policia Nacional Civil"
+	price_comparation.unit_cost = 1362.55
+	price_comparation.description = "Salario mensual de Comisionado de la PNC"
 	price_comparation.name = price_comparation.description
 	price_comparation.save
    end
@@ -36,7 +104,7 @@ namespace :argo do
 	   nombre_pizza =  pizza.search(".title h3").text.strip
 	   precio = pizza.search(".title .price span").text.gsub("$","").to_f
 	   price_comparation.category = "Trivial"
-	   price_comparation.source_information = "Pizza Hut.com.sv"
+	   price_comparation.source_information = "pizzahut.com.sv"
 	   price_comparation.unit_cost = precio
 	   if precio < 10
 		price_comparation.description = "Pizza Personal #{nombre_pizza}"
@@ -61,7 +129,7 @@ namespace :argo do
 		precio_cerveza = cerveza.search(".precio span").text.gsub("$","").strip
 		price_comparation = PriceComparation.new
 		price_comparation.category = "Trivial"
-	   	price_comparation.source_information = "SuperSelectos.com.sv"
+	   	price_comparation.source_information = "superselectos.com.sv"
 	   	price_comparation.unit_cost = precio_cerveza.to_f
 	   	price_comparation.description = "#{nombre_cerveza}"	
 	   	price_comparation.name = price_comparation.description
