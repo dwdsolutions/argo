@@ -5,7 +5,7 @@ desc "Populate Countries codes"
 	json = JSON.parse(IO.read("#{Dir.pwd}/lib/tasks/countries.json"))
 	viajes = Travel.all
 	viajes.each do |viaje|
-	   code = json.map {|h1| h1['cca2'] if h1['translations']['es']==viaje.destination}.compact.first
+	   code = json.map {|h1| h1['cca2'] if h1['translations']['es']==viaje.country}.compact.first
 	   if code
 		viaje.destination_code = code
 		viaje.save
