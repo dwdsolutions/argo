@@ -5,7 +5,7 @@ namespace :argo do
       travels = Travel.all
       travels.each do |travel|
         total = 0
-        travels.travelers.each do |traveler|
+        travel.travelers.each do |traveler|
           total += traveler.cost_by_person
         end
         travel.update_attributes({total_cost: total})
