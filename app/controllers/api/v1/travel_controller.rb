@@ -21,7 +21,7 @@ module Api
 		end
 
 		def travelers_for_institucion
-		   	
+			render json: Traveler.group(:institution_acronym).count
 		end
 	end
    end
