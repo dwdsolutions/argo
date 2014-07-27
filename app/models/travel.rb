@@ -34,7 +34,7 @@ class Travel < ActiveRecord::Base
       end
 
       request.run
-      puts "institution: #{@institutions}"
+
       total_cost = item.fetch('travel_cost', 0) + item.fetch('viatical_cost', 0)
       {
         name: item['name'],
