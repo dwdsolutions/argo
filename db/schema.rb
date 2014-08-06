@@ -11,10 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140727205531) do
+ActiveRecord::Schema.define(version: 20140806003459) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "institutions", force: true do |t|
+    t.string   "name"
+    t.integer  "institution_type_id"
+    t.string   "acronym"
+    t.boolean  "accepts_online_information_requests"
+    t.boolean  "at_complaints"
+    t.boolean  "at_information_requests"
+    t.string   "facebook_url"
+    t.integer  "information_request_correlative"
+    t.integer  "information_standard_category_id"
+    t.boolean  "ranked"
+    t.string   "twitter_url"
+    t.string   "website_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "price_comparations", force: true do |t|
     t.string   "name"
@@ -52,8 +69,18 @@ ActiveRecord::Schema.define(version: 20140727205531) do
     t.text     "sponsor_contribution"
     t.string   "institution_name"
     t.string   "institution_acronym"
+    t.string   "destination_code"
   end
 
   add_index "travels", ["country"], name: "index_travels_on_country", using: :btree
+
+  create_table "votes", force: true do |t|
+    t.integer  "travel_id"
+    t.string   "ip"
+    t.boolean  "vote_down"
+    t.boolean  "vote_up"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end
