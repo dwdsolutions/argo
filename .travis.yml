@@ -1,8 +1,8 @@
 language: ruby
 cache: bundler
 rvm:
-  - 1.9.3-p547
-  - 2.0.0
+  #- 1.9.3-p547
+  #- 2.0.0
   - 2.1.2
 after_success:
 - coveralls
