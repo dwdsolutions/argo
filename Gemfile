@@ -26,6 +26,7 @@ gem 'jbuilder'
 group :production do
   # Use unicorn as the app server
   gem 'unicorn'
+  ruby "2.1.2"
 end
 
 # Code Coverage
@@ -36,5 +37,3 @@ gem 'coveralls', require: false
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 gem 'typhoeus'
-
-ruby "2.1.2"
