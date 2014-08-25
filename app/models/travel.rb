@@ -1,6 +1,8 @@
 class Travel < ActiveRecord::Base
   has_many :travelers
 
+  scope :actives, -> { where(active: true) }
+
   def self.sync_with_api(opts={})
     url = 'http://api.gobiernoabierto.gob.sv/'
     endpoint = 'institution_travels'
