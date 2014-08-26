@@ -14,6 +14,8 @@ gem 'resque-scheduler'
 gem 'mechanize'
 gem 'nokogiri'
 
+gem 'active_model_serializers'
+
 # CORS
 gem 'rack-cors', :require => 'rack/cors'
 
