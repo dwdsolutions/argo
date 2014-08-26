@@ -8,23 +8,16 @@ class Travel < ActiveRecord::Base
     endpoint = 'institution_travels'
     api_headers = {Authorization: 'Token token="36bc11762f97f155729497f7099d76c4"'}
 
-    url_to_request = "#{url}#{endpoint}"
     params = {
         'per_page' => 100,
         'q[start_date_gteq]' => '2014-01-01',
         'page' => opts.fetch(:page) {1}
     }
-    request = Typhoeus::Request.new(url_to_request, headers: api_headers, params: params)
 
-    request.on_complete do |response|
-      if response.code == 200
-        @response = JSON.parse(response.response_body)
-      end
-    end
+    client("#{url}#{endpoint}", api_headers, params)
 
-    request.run
     puts "Retornados: #{@response.length}, procesando..."
-    results = @response.map do |item|
+    @response.each do |item|
       url_to_request = "#{url}institutions"
       params = {
           'q[id_eq]' => item['institution_id']
@@ -66,5 +59,22 @@ class Travel < ActiveRecord::Base
 
       @travel.travelers.create(traveler)
     end
+  end
+
+  private
+  def client(url, headers=nil, params=nil)
+    if headers.nil? and params.nil?
+      request = Typhoeus::Request.new(url)
+    else
+      request = Typhoeus::Request.new(url, headers: headers, params: params)
+    end
+
+    request.on_complete do |response|
+      if response.code == 200
+        @response = JSON.parse(response.response_body)
+      end
+    end
+
+    request.run
   end
 end
