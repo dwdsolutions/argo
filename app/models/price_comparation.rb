@@ -7,4 +7,12 @@ class PriceComparation < ActiveRecord::Base
 	  comparations = comparations + self.limit(1).where(:category => 'Salario').order("RANDOM()")
 	  comparations
   end
+
+  def count=(value)
+    @count = value
+  end
+
+  def count
+    @count
+  end
 end
