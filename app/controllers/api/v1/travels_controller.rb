@@ -12,7 +12,7 @@ module API
       end
 
       def travels_recents
-        render json: Travel.actives.order('start_date DESC').limit(10)
+        render json: Travel.includes(:travelers).actives.order('start_date DESC').limit(10), root:false
       end
     end
   end
