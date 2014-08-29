@@ -4,7 +4,7 @@ module API
 
       def show
         @travel = Travel.find(params[:id])
-        render json: @travel, serializer: TravelSerializer
+        render json: @travel, serializer: TravelSerializer, root: false
       end
 
       def travelers_for_institucion
