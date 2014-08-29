@@ -14,7 +14,7 @@ gem 'resque-scheduler'
 gem 'mechanize'
 gem 'nokogiri'
 
-gem 'active_model_serializers', '0.8.0'
+gem 'active_model_serializers', '~> 0.8.0'
 
 #New Relic
 gem 'newrelic_rpm'
