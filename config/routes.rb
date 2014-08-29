@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     with_options only: :show do |list_and_show|
       list_and_show.resources :travels do
         collection do
-          get 'recents'
+          get 'recents', action: 'travels_recents'
         end
       end
     end
