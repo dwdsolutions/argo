@@ -1,5 +1,5 @@
 class TravelerSerializer < ActiveModel::Serializer
-  attributes :id
+  attributes :id, :name, :cost_by_person
 
-  belongs_to :travel
+  #belongs_to :travel
 end
