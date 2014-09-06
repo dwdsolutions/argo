@@ -6,9 +6,6 @@ class Travel < ActiveRecord::Base
   scope :actives, -> { where(active: true) }
 
   def self.sync_with_api(opts={})
-    url = 'http://api.gobiernoabierto.gob.sv/'
-    endpoint = 'institution_travels'
-    api_headers = {Authorization: 'Token token="36bc11762f97f155729497f7099d76c4"'}
 
     params = {
         'per_page' => 100,
@@ -16,16 +13,16 @@ class Travel < ActiveRecord::Base
         'page' => opts.fetch(:page) {1}
     }
 
-    client = Http::Client.new("#{url}#{endpoint}", api_headers, params)
+    client = Http::Client.new('institution_travels', params)
 
     puts "Retornados: #{client.response.length}, procesando..."
     client.response.each do |item|
-      url_to_request = "#{url}institutions"
+
       params = {
           'q[id_eq]' => item['institution_id']
       }
 
-      client = Http::Client.new(url_to_request, api_headers, params)
+      client = Http::Client.new('institutions', params)
       institutions = client.response
 
       other_costs = 0

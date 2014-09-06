@@ -1,11 +1,13 @@
 module Http
   class Client
-    def initialize(url, headers=nil, params=nil)
-      @response = nil
-      if headers.nil? and params.nil?
+    def initialize(endpoint, params=nil)
+      @headers = {Authorization: 'Token token="36bc11762f97f155729497f7099d76c4"'}
+      @base_url = 'http://api.gobiernoabierto.gob.sv/'
+      url = "#{@base_url}#{endpoint}"
+      if @headers.nil? and params.nil?
         request = Typhoeus::Request.new(url)
       else
-        request = Typhoeus::Request.new(url, headers: headers, params: params)
+        request = Typhoeus::Request.new(url, headers: @headers, params: params)
       end
 
       request.on_complete do |response|
