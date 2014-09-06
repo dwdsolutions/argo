@@ -1,3 +1,5 @@
+require 'http/client'
+
 class Travel < ActiveRecord::Base
   has_many :travelers
 
@@ -14,23 +16,17 @@ class Travel < ActiveRecord::Base
         'page' => opts.fetch(:page) {1}
     }
 
-    client("#{url}#{endpoint}", api_headers, params)
+    client = Http::Client.new("#{url}#{endpoint}", api_headers, params)
 
-    puts "Retornados: #{@response.length}, procesando..."
-    @response.each do |item|
+    puts "Retornados: #{client.response.length}, procesando..."
+    client.response.each do |item|
       url_to_request = "#{url}institutions"
       params = {
           'q[id_eq]' => item['institution_id']
       }
-      request = Typhoeus::Request.new(url_to_request, headers: api_headers, params: params)
 
-      request.on_complete do |response|
-        if response.code == 200
-          @institutions = JSON.parse(response.response_body)
-        end
-      end
-
-      request.run
+      client = Http::Client.new(url_to_request, api_headers, params)
+      institutions = client.response
 
       other_costs = 0
       item['others_cost'].gsub(/\S(?<other>\d+\.\d+)/).each { |m| other_costs += $~.captures.first.to_f }
@@ -38,7 +34,7 @@ class Travel < ActiveRecord::Base
       traveler = {
           name: item['institution_official_name'],
           position: item['institution_official_job'],
-          institution: @institutions.first['name'],
+          institution: institutions.first['name'],
           cost_by_person: total_cost
       }
 
@@ -48,8 +44,8 @@ class Travel < ActiveRecord::Base
         start_date: item['start_date'],
         end_date: item['end_date'],
         sponsor_contribution: item['sponsor_contribution'],
-        institution_name: @institutions.first['name'],
-        institution_acronym: @institutions.first['acronym']
+        institution_name: institutions.first['name'],
+        institution_acronym: institutions.first['acronym']
       }
 
       @travel = self.find_by_name travel[:name]
@@ -59,22 +55,5 @@ class Travel < ActiveRecord::Base
 
       @travel.travelers.create(traveler)
     end
-  end
-
-  private
-  def client(url, headers=nil, params=nil)
-    if headers.nil? and params.nil?
-      request = Typhoeus::Request.new(url)
-    else
-      request = Typhoeus::Request.new(url, headers: headers, params: params)
-    end
-
-    request.on_complete do |response|
-      if response.code == 200
-        @response = JSON.parse(response.response_body)
-      end
-    end
-
-    request.run
   end
 end
