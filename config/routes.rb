@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       list_and_show.resources :travels do
         collection do
           get 'recents', action: 'travels_recents'
+          get 'most-expensives', action: 'most_expensives'
         end
       end
     end

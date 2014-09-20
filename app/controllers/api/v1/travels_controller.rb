@@ -14,6 +14,10 @@ module API
       def travels_recents
         render json: Travel.includes(:travelers).actives.order('start_date DESC').limit(10), root:false
       end
+
+      def most_expensives
+        render json: Travel.includes(:travelers).actives.order('total_cost DESC').limit(10), root:false
+      end
     end
   end
 end
