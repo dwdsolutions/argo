@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140906172904) do
+ActiveRecord::Schema.define(version: 20140924065821) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,10 @@ ActiveRecord::Schema.define(version: 20140906172904) do
     t.integer  "travel_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.decimal  "travel_cost"
+    t.decimal  "viatical_cost"
+    t.decimal  "lodgement_cost"
+    t.string   "other_cost"
   end
 
   create_table "travels", force: true do |t|
@@ -77,6 +81,7 @@ ActiveRecord::Schema.define(version: 20140906172904) do
     t.string   "institution_acronym"
     t.string   "destination_code"
     t.boolean  "active",                                        default: true
+    t.integer  "api_id"
   end
 
   add_index "travels", ["country"], name: "index_travels_on_country", using: :btree

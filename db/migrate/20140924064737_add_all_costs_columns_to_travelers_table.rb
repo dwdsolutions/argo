@@ -1,4 +1,4 @@
-class AddAllCostsColumnsToTravelerTable < ActiveRecord::Migration
+class AddAllCostsColumnsToTravelersTable < ActiveRecord::Migration
   def change
     add_column :travelers, :travel_cost, :decimal
     add_column :travelers, :viatical_cost, :decimal
