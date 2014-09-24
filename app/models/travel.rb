@@ -26,8 +26,8 @@ class Travel < ActiveRecord::Base
       institutions = client.response
 
       other_costs = 0
-      item['others_cost'].gsub(/\S(?<other>\d+\.\d+)/).each { |m| other_costs += $~.captures.first.to_f }
-      total_cost = item.fetch('travel_cost', 0) + item.fetch('viatical_cost', 0) + other_costs
+      item['others_cost'].gsub(/(?<other>\d+\.\d+|\d+)/).to_a.each { |m| other_costs += m.to_f }
+      total_cost = item.fetch('travel_cost', 0) + item.fetch('viatical_cost', 0) + item.fetch('lodgment_cost', 0) + other_costs
       traveler = {
           name: item['institution_official_name'],
           position: item['institution_official_job'],
@@ -42,15 +42,22 @@ class Travel < ActiveRecord::Base
         end_date: item['end_date'],
         sponsor_contribution: item['sponsor_contribution'],
         institution_name: institutions.first['name'],
-        institution_acronym: institutions.first['acronym']
+        institution_acronym: institutions.first['acronym'],
+        travel_cost: item['travel_cost'],
+        viatical_cost: item['viatical_cost'],
+        lodgement_cost: item['lodgment_cost'],
+        other_cost: item['other_cost'],
+        api_id: item['id']
       }
 
-      @travel = self.find_by_name travel[:name]
-      if @travel.nil?
-        @travel = self.create travel
-      end
+      unless self.exists?(api_id: item[:api_id])
+        @travel = self.find_by_name travel[:name]
+        if @travel.nil?
+          @travel = self.create travel
+        end
 
-      @travel.travelers.create(traveler)
+        @travel.travelers.create(traveler)
+      end
     end
   end
 end
