@@ -32,7 +32,11 @@ class Travel < ActiveRecord::Base
           name: item['institution_official_name'],
           position: item['institution_official_job'],
           institution: institutions.first['name'],
-          cost_by_person: total_cost
+          cost_by_person: total_cost,
+          travel_cost: item['travel_cost'],
+          viatical_cost: item['viatical_cost'],
+          lodgement_cost: item['lodgment_cost'],
+          other_cost: item['other_cost'],
       }
 
       travel = {
@@ -43,10 +47,6 @@ class Travel < ActiveRecord::Base
         sponsor_contribution: item['sponsor_contribution'],
         institution_name: institutions.first['name'],
         institution_acronym: institutions.first['acronym'],
-        travel_cost: item['travel_cost'],
-        viatical_cost: item['viatical_cost'],
-        lodgement_cost: item['lodgment_cost'],
-        other_cost: item['other_cost'],
         api_id: item['id']
       }
 
